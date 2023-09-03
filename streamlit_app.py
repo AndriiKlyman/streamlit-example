@@ -2,6 +2,21 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.figure_factory as ff
+import argparse
+import sys
+
+def parse_args(args):
+    parser = argparse.ArgumentParser('Data Diagnostics')
+    parser.add_argument('-coin', help='what coin', required=True)
+    return parser.parse_args(args)
+
+args = parse_args(sys.argv[1:])
+
+if args=="abc": 
+    st.write('Hello, ABC!')
+else: 
+    st.write('Hello, ELSE!')
+    
 
 chart_data = pd.DataFrame(
     np.random.randn(20, 3),
