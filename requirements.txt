@@ -4,3 +4,4 @@ streamlit
 plotly
 scipy
 binance-connector
+bokeh
