@@ -7,10 +7,9 @@ import sys
 from binance.spot import Spot as BinClient
 
 from bokeh.models import BoxAnnotation
+from bokeh.models import ColumnDataSource
 from bokeh.plotting import figure, show
-from bokeh.sampledata.stocks import MSFT
-import bokeh.sampledata
-bokeh.sampledata.download()
+from bokeh.sampledata.sprint import sprint
 
 Bin_API_Key  = "3NQ3eBCvOnTDpmkO6yOI7SkqoKvLhpF2ddFyaYWEQf0QmLyweQgx6Oyw62q5xNC9"
 Bin_API_Secret = "YcOEDE19tnJIRZJxgI9hEugVmha4grCrEXDCJH7kNRJtdIwN38QO9FjFc71n636c"
@@ -47,33 +46,20 @@ with tab3:
 st.line_chart(chart_data)
 
 
-df = pd.DataFrame(MSFT)[60:120]
-df["date"] = pd.to_datetime(df["date"])
 
-inc = df.close > df.open
-dec = df.open > df.close
+df = sprint.copy()  # since we are modifying sampledata
 
-non_working_days = df[['date']].assign(diff=df['date'].diff()-pd.Timedelta('1D'))
-non_working_days = non_working_days[non_working_days['diff']>=pd.Timedelta('1D')]
+df.Year = df.Year.astype(str)
+group = df.groupby('Year')
+source = ColumnDataSource(group)
 
-df['date'] += pd.Timedelta('12H') # move candles to the center of the day
+p = figure(y_range=group, x_range=(9.5,12.7), width=400, height=550, toolbar_location=None,
+           title="Time Spreads for Sprint Medalists (by Year)")
+p.hbar(y="Year", left='Time_min', right='Time_max', height=0.4, source=source)
 
-TOOLS = "pan,wheel_zoom,box_zoom,reset,save"
-
-p = figure(x_axis_type="datetime", tools=TOOLS, width=1000, height=400,
-           title="MSFT Candlestick", background_fill_color="#efefef")
-p.xaxis.major_label_orientation = 0.8 # radians
-
-boxes = [
-    BoxAnnotation(fill_color="#bbbbbb", fill_alpha=0.2, left=date-diff, right=date)
-    for date, diff in non_working_days.values
-]
-p.renderers.extend(boxes)
-
-p.segment(df.date, df.high, df.date, df.low, color="black")
-
-p.vbar(df.date[dec], pd.Timedelta('16H'), df.open[dec], df.close[dec], color="#eb3c40")
-p.vbar(df.date[inc], pd.Timedelta('16H'), df.open[inc], df.close[inc], fill_color="white",line_color="#49a3a3", line_width=2)
+p.ygrid.grid_line_color = None
+p.xaxis.axis_label = "Time (seconds)"
+p.outline_line_color = None
 
 st.bokeh_chart(p, use_container_width=True)
 
