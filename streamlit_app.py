@@ -46,7 +46,7 @@ with tab3:
 st.line_chart(chart_data)
 
 
-
+bokeh.sampledata.download()
 df = pd.DataFrame(MSFT)[60:120]
 df["date"] = pd.to_datetime(df["date"])
 
