@@ -9,7 +9,7 @@ from binance.spot import Spot as BinClient
 from bokeh.models import BoxAnnotation
 from bokeh.plotting import figure, show
 from bokeh.sampledata.stocks import MSFT
-
+bokeh.sampledata.download()
 
 Bin_API_Key  = "3NQ3eBCvOnTDpmkO6yOI7SkqoKvLhpF2ddFyaYWEQf0QmLyweQgx6Oyw62q5xNC9"
 Bin_API_Secret = "YcOEDE19tnJIRZJxgI9hEugVmha4grCrEXDCJH7kNRJtdIwN38QO9FjFc71n636c"
@@ -46,7 +46,6 @@ with tab3:
 st.line_chart(chart_data)
 
 
-bokeh.sampledata.download()
 df = pd.DataFrame(MSFT)[60:120]
 df["date"] = pd.to_datetime(df["date"])
 
