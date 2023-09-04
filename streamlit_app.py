@@ -8,7 +8,7 @@ import sys
 dict_params = st.experimental_get_query_params()
 args = dict_params['coin']
 
-if args=="abc": 
+if dict_params['coin'][0]=="abc": 
     st.write('Hello, ABC!')
 else: 
     st.write('Hello, ELSE!')
