@@ -40,7 +40,7 @@ with tab3:
 
 st.line_chart(chart_data)
 
-
+spot_client = BinClient(base_url="https://testnet.binance.vision")
 data1 = pd.DataFrame(spot_client.historical_trades("BTCUSDT", limit=10, fromId="100"))
 st.line_chart(data1)
 
