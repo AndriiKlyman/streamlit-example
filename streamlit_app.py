@@ -5,12 +5,8 @@ import plotly.figure_factory as ff
 import argparse
 import sys
 
-def parse_args(args):
-    parser = argparse.ArgumentParser('Data Diagnostics')
-    parser.add_argument('-coin', help='what coin', required=True)
-    return parser.parse_args(args)
-
-args = parse_args(sys.argv[1:])
+dict_params = st.experimental_get_query_params()
+args = dict_params['coin']
 
 if args=="abc": 
     st.write('Hello, ABC!')
