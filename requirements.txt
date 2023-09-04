@@ -4,4 +4,4 @@ streamlit
 plotly
 scipy
 binance-connector
-bokeh
+bokeh==2.4.3
