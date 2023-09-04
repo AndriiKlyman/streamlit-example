@@ -13,7 +13,7 @@ if args=="abc":
 else: 
     st.write('Hello, ELSE!')
     
-
+st.write(args)
 chart_data = pd.DataFrame(
     np.random.randn(20, 3),
     columns=['a', 'b', 'c'])
