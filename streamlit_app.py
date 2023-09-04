@@ -42,7 +42,7 @@ st.line_chart(chart_data)
 
 spot_client = BinClient(base_url="https://testnet.binance.vision")
 data1 = pd.DataFrame(spot_client.historical_trades("BTCUSDT", limit=10, fromId="100"))
-st.line_chart(data1)
+st.line_chart(data1, x="time", y="price")
 
 st.button("Reset1", type="primary")
 st.button("Reset2", type="secondary")
