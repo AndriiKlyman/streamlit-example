@@ -4,6 +4,10 @@ import numpy as np
 import plotly.figure_factory as ff
 import argparse
 import sys
+from binance.spot import Spot as BinClient
+
+Bin_API_Key  = "3NQ3eBCvOnTDpmkO6yOI7SkqoKvLhpF2ddFyaYWEQf0QmLyweQgx6Oyw62q5xNC9"
+Bin_API_Secret = "YcOEDE19tnJIRZJxgI9hEugVmha4grCrEXDCJH7kNRJtdIwN38QO9FjFc71n636c"
 
 dict_params = st.experimental_get_query_params()
 args = dict_params['coin']
@@ -36,6 +40,10 @@ with tab3:
 
 st.line_chart(chart_data)
 
+
+data1 = pd.DataFrame(spot_client.historical_trades("BTCUSDT", limit=10, fromId="100"))
+st.line_chart(data1)
+
 st.button("Reset1", type="primary")
 st.button("Reset2", type="secondary")
 
@@ -56,3 +64,8 @@ fig = ff.create_distplot(
 
 # Plot!
 st.plotly_chart(fig, use_container_width=True)
+
+
+
+
+
